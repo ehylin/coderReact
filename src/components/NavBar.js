@@ -1,4 +1,3 @@
-import Button from 'react-bootstrap/Button';
 import Container from 'react-bootstrap/Container';
 import Form from 'react-bootstrap/Form';
 import Nav from 'react-bootstrap/Nav';
@@ -10,7 +9,7 @@ const NavBar = () => {
         <Navbar className='navBarContent'  expand="lg">
         <Container fluid>
             <div className='ico'>
-            <img src={ico} alt="" width="40" />
+            <img src={ico} alt="logo" width="40" />
             </div>
        
           <Navbar.Collapse id="navbarScroll ">
