@@ -43,3 +43,17 @@ code {
 .linkNavbar {
   color: #fff;
 }
+.icoCart {
+  border: 1px solid #f5f5f5;
+  padding: 15px;
+  background-color: #fff;
+}
+.icoSpan {
+  float: right;
+  position: absolute;
+  padding-left: 1px;
+}
+.imgIco {
+  float: left;
+  position: relative;
+}
