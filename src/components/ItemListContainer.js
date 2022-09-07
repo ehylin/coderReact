@@ -1,13 +1,28 @@
 import React from 'react'
-import ItemCount from "./itemCount";
+import {Container, Row} from 'react-bootstrap';
+import Product from './Product'
 
-const ItemListContainer = () => {
+
+const ItemListContainer = (props) => {
+
+    const {products} = props;
+    //console.log(products)
 
     return ( 
-        <>
-         <h1>Aqui va el catalogo</h1>
-         <ItemCount />
-        </>
+        <Container>
+            <Row>
+                {
+                    products.length === 0 ? (
+                        'No hay productos'
+                    ) : (
+                        products.map((product, index) =>( 
+                            <Product key={index} product={product} />
+                        ))
+                    )  
+                }
+          
+            </Row>
+        </Container>
        
      );
 }

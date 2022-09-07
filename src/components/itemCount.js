@@ -21,7 +21,7 @@ const ItemCount = () => {
         <>
          <button type='button' onClick={aunCont} > +</button>
          <button type='button' onClick={disCount} > -</button>
-            <span>{initial}</span>
+            <span>seleccionado : {initial}</span>
  
         </>
      );

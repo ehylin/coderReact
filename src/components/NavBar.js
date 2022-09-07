@@ -4,6 +4,7 @@ import Nav from 'react-bootstrap/Nav';
 import Navbar from 'react-bootstrap/Navbar';
 import ico from '../../src/logo.svg'
 import CartWidget from './CartWidget'
+import { Link } from 'react-router-dom'
 const NavBar = () => {
     return ( 
         <Navbar className='navBarContent'  expand="lg">
@@ -18,7 +19,12 @@ const NavBar = () => {
               style={{ maxHeight: '100px' }}
               navbarScroll
             >
-              <Nav.Link className='btnNavbar' href="#action1">Inicio</Nav.Link>
+               <Link className='linkNavbar' to="/">
+                            Inicio
+                </Link>
+                <Link className='linkNavbar' to="/carrito">
+                          Carrito de compra
+                </Link>
               <Nav.Link className='linkNavbar' href="#action2">Vehiculo</Nav.Link>
               <Nav.Link className='linkNavbar' href="#action3">Electronica</Nav.Link>
               <Nav.Link className='linkNavbar' href="#action4">Libros</Nav.Link>
