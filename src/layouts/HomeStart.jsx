@@ -5,17 +5,32 @@ import { STORAGE_PRODUCTS_CART } from "../utils/constans";
 const HomeStart = () => {
     const [products, setProducts] = useState([])
     const [productsCart, setProductsCart] = useState([])
+
+
+
     useEffect(() => {
-        const getOrders = async () => {
-            try {
-                const { data } = await axios.get("http://myjson.dit.upm.es/api/bins/5my6")
-                console.log(data)
-                setProducts(data)
-            } catch (error) {
-                console.log(error)
-            }
-        }
-        getOrders();
+        const queryRef = collection(db, "productos")
+        getDocs(queryRef).then(response => {
+            const resultados = response.docs.map(doc => {
+                const newItem = {
+                    id: doc.id,
+                    ...doc.data(),
+                }
+                return newItem
+            });
+            setProducts(resultados);
+        })
+
+        // const getOrders = async () => {
+        //     try {
+        //         const { data } = await axios.get("http://myjson.dit.upm.es/api/bins/5my6")
+        //         console.log(data)
+        //         setProducts(data)
+        //     } catch (error) {
+        //         console.log(error)
+        //     }
+        // }
+        // getOrders();
     }, []);
 
     useEffect(() => {

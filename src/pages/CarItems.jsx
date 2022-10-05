@@ -5,11 +5,15 @@ import { ReactComponent as CartFull } from "../../assets/svg/cart-full.svg";
 import { ReactComponent as Close } from "../../assets/svg/close.svg";
 import { ReactComponent as Garbage } from "../../assets/svg/garbage.svg";
 
+
+import { db } from "../firebase";
+import { collection, getDocs, query, where } from "firebase/firestore";
+
 import {
     removeArrayDuplicates,
     countDuplicatesItemArray,
     removeItemArray
-} from "../../utils/arrayFunc";
+} from "../context/CartContext";
 
 
 export default function Cart(props) {
@@ -18,6 +22,8 @@ export default function Cart(props) {
     const widthCartContent = cartOpen ? 400 : 0;
     const [singelProductsCart, setSingelProductsCart] = useState([]);
     const [cartTotalPrice, setCartTotalPrice] = useState(0);
+
+
 
     useEffect(() => {
         const allProductsId = removeArrayDuplicates(productsCart);
@@ -29,11 +35,25 @@ export default function Cart(props) {
         let totalPrice = 0;
 
         const allProductsId = removeArrayDuplicates(productsCart);
-        allProductsId.forEach(productId => {
+
+        const queryRef = collection(db, "productos");
+        getDocs(queryRef).then(response => {
+            const resultados = response.docs.map(doc => {
+                const newItem = {
+                    id: doc.id,
+                    ...doc.data(),
+                }
+                return newItem
+            });
+            setProductos(resultados);
+        })
+
+        allProductsId.getDocs(productId => {
             const quantity = countDuplicatesItemArray(productId, productsCart);
             const productValue = {
-                id: productId,
-                quantity: quantity
+                id: doc.id,
+                quantity: quantity,
+                ...doc.data(),
             };
             productData.push(productValue);
         });
