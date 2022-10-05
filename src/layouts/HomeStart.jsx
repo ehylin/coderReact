@@ -2,24 +2,30 @@ import React, { useEffect, useState } from "react";
 import ItemListContainer from '../components/ItemListContainer'
 import axios from 'axios';
 import { STORAGE_PRODUCTS_CART } from "../utils/constans";
+import { db } from "../firebase";
+import { collection, getDocs, query, where } from "firebase/firestore";
+
 const HomeStart = () => {
+
     const [products, setProducts] = useState([])
     const [productsCart, setProductsCart] = useState([])
 
 
 
     useEffect(() => {
-        const queryRef = collection(db, "productos")
-        getDocs(queryRef).then(response => {
-            const resultados = response.docs.map(doc => {
-                const newItem = {
-                    id: doc.id,
-                    ...doc.data(),
-                }
-                return newItem
-            });
-            setProducts(resultados);
-        })
+        const getOrders = async () => {
+            const queryRef = collection(db, "productos")
+            getDocs(queryRef).then(response => {
+                const resultados = response.docs.map(doc => {
+                    const newItem = {
+                        id: doc.id,
+                        ...doc.data(),
+                    }
+                    return newItem
+                });
+                setProducts(resultados);
+            })
+        }
 
         // const getOrders = async () => {
         //     try {
@@ -30,7 +36,7 @@ const HomeStart = () => {
         //         console.log(error)
         //     }
         // }
-        // getOrders();
+        getOrders();
     }, []);
 
     useEffect(() => {
