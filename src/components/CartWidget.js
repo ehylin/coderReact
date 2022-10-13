@@ -1,19 +1,16 @@
-import React from 'react'
-import  icoCart  from "../assets/img/cart.svg";
+import Carrito from '../assets/img/cart.svg';
+import { Link } from 'react-router-dom';
+import { useContext } from 'react';
+import { CartContext } from '../context/CartContext';
 
-const CartWidget = () => {
-    
-
-    return ( 
-        <>
-        <div className="icoCart">
-        <img className="imgIco" src={icoCart} alt="icono cart"></img>
-        <span className="icoSpan">4</span>
-       
+export const CartWidget = () => {
+    const { getTotalProducts } = useContext(CartContext);
+    return (
+        <div>
+            <Link to="/cart">
+                <img src={Carrito} alt="mario" style={{ width: 20 }} />
+                <span style={{ backgroundColor: 'white', borderRadius: "50%", width: "10px", heigth: "10px", fontSize: "20px", color: "black" }}>{getTotalProducts()}</span>
+            </Link>
         </div>
-       
-        </>
-     );
+    )
 }
- 
-export default CartWidget;

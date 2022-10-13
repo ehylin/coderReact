@@ -1,75 +1,38 @@
-import React, { useEffect, useState } from "react";
-import ItemListContainer from '../components/ItemListContainer'
-import axios from 'axios';
-import { STORAGE_PRODUCTS_CART } from "../utils/constans";
-import { db } from "../firebase";
-import { collection, getDocs, query, where } from "firebase/firestore";
-
-const HomeStart = () => {
-
-    const [products, setProducts] = useState([])
-    const [productsCart, setProductsCart] = useState([])
+import { useEffect, useState } from "react";
+import { productosDB } from "../baseDeDatos";
+import { ItemList } from "../components/ItemList";
+import { useParams } from 'react-router-dom';
 
 
+export const ItemListContainer = () => {
+    const { categoryId } = useParams();
+    console.log('categoryId', categoryId)
+    const [productos, setProductos] = useState([]);
 
-    useEffect(() => {
-        const getOrders = async () => {
-            const queryRef = collection(db, "productos")
-            getDocs(queryRef).then(response => {
-                const resultados = response.docs.map(doc => {
-                    const newItem = {
-                        id: doc.id,
-                        ...doc.data(),
-                    }
-                    return newItem
-                });
-                setProducts(resultados);
-            })
-        }
+    console.log(productos)
 
-        // const getOrders = async () => {
-        //     try {
-        //         const { data } = await axios.get("http://myjson.dit.upm.es/api/bins/5my6")
-        //         console.log(data)
-        //         setProducts(data)
-        //     } catch (error) {
-        //         console.log(error)
-        //     }
-        // }
-        getOrders();
-    }, []);
+    const promesa = new Promise((resolve, reject) => {
+        setTimeout(() => {
+            resolve(productosDB);
+        }, 1000);
+    })
 
     useEffect(() => {
-        getProductsCart();
-    }, []);
-
-    const getProductsCart = () => {
-        const idsProducts = localStorage.getItem(STORAGE_PRODUCTS_CART);
-
-        if (idsProducts) {
-            const idsProductsSplit = idsProducts.split(",");
-            setProductsCart(idsProductsSplit);
-        } else {
-            setProductsCart([]);
-        }
-    };
-
-    const addProductCart = (id, name) => {
-        const idsProducts = productsCart;
-        idsProducts.push(id);
-        setProductsCart(idsProducts);
-        localStorage.setItem(STORAGE_PRODUCTS_CART, productsCart);
-
-        console.log("producto anadido")
-    };
-
-
+        promesa.then(resultado => {
+            console.log(resultado)
+            if (categoryId) {
+                const newProducts = resultado.filter(item => item.categoria === categoryId);
+                setProductos(newProducts)
+            } else {
+                setProductos(resultado)
+            }
+        })
+    }, [categoryId])
 
     return (
-        <>
-            <h1 className="text-center">Dashboard</h1>
-            <ItemListContainer products={products} addProductCart={addProductCart} />
-        </>
-    );
+        <div className="item-list-container">
+            <p>Productos</p>
+            <ItemList items={productos} />
+        </div>
+    )
 }
-export default HomeStart;

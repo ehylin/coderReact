@@ -1,22 +1,23 @@
 import React from "react";
-import {BrowserRouter as Router, Routes, Route} from "react-router-dom";
-import Home from "./pages/Home";
-import CarItems from "./pages/CarItems";
-import HomeStart from './layouts/HomeStart'
-import ItemDetallsContainer from "./components/ItemDetallsContainer";
+import { BrowserRouter, Routes, Route } from "react-router-dom";
+import { CartContainer } from "./components/CartContainer";
+import { ItemListContainer } from './layouts/HomeStart'
+import { ItemDetailContainer } from "./components/ItemDetailContainer";
+import { CartProvider } from "./context/CartContext";
+import Navbar from './components/NavBar'
 
 const Routing = () => {
   return (
-    <Router>
-      <Routes>
-        <Route path="/" element={<Home />}  >
-          <Route index path="/" element={<HomeStart />} />
-          <Route path="carrito" element={<CarItems />} />
-          <Route path="/item/:productId" element={<ItemDetallsContainer />} />
-        </Route>
-       
-      </Routes>
-    </Router>
+    <CartProvider>
+      <BrowserRouter>
+        <Navbar />
+        <Routes>
+          <Route path="/" element={<ItemListContainer />} />
+          <Route path="/cart" element={<CartContainer />} />
+          <Route path="/item/:productId" element={<ItemDetailContainer />} />
+        </Routes>
+      </BrowserRouter>
+    </CartProvider>
   );
 };
 
