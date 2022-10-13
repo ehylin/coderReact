@@ -2,6 +2,7 @@ import { useEffect, useState } from "react";
 import { productosDB } from "../baseDeDatos";
 import { ItemList } from "../components/ItemList";
 import { useParams } from 'react-router-dom';
+import { Container, Spinner } from 'react-bootstrap'
 
 
 export const ItemListContainer = () => {
@@ -30,9 +31,18 @@ export const ItemListContainer = () => {
     }, [categoryId])
 
     return (
-        <div className="item-list-container">
-            <p>Productos</p>
-            <ItemList items={productos} />
-        </div>
+        <Container >
+            <p className="text-center">Tienda de Helados</p>
+            {productos.length === 0 ?
+                <div className="text-center">
+                    <Spinner animation="border" role="status">
+                        <span className="visually-hidden">Loading...</span>
+                    </Spinner>
+                </div>
+                :
+                <ItemList items={productos} />
+            }
+
+        </Container>
     )
 }

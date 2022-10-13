@@ -5,6 +5,7 @@ import { ItemListContainer } from './layouts/HomeStart'
 import { ItemDetailContainer } from "./components/ItemDetailContainer";
 import { CartProvider } from "./context/CartContext";
 import Navbar from './components/NavBar'
+import { ContactPage } from './pages/ContactPage'
 
 const Routing = () => {
   return (
@@ -15,6 +16,7 @@ const Routing = () => {
           <Route path="/" element={<ItemListContainer />} />
           <Route path="/cart" element={<CartContainer />} />
           <Route path="/item/:productId" element={<ItemDetailContainer />} />
+          <Route path="/contacto" element={<ContactPage />} />
         </Routes>
       </BrowserRouter>
     </CartProvider>

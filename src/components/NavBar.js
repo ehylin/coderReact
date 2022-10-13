@@ -22,12 +22,12 @@ const NavBar = () => {
             <Link className='linkNavbar' to="/">
               Inicio
             </Link>
-            <Link className='linkNavbar' to="/carrito">
+            <Link className='linkNavbar' to="/cart">
               Carrito de compra
             </Link>
-            <Nav.Link className='linkNavbar' href="#action2">Vehiculo</Nav.Link>
-            <Nav.Link className='linkNavbar' href="#action3">Electronica</Nav.Link>
-            <Nav.Link className='linkNavbar' href="#action4">Libros</Nav.Link>
+            <Link className='linkNavbar' to="/contacto">
+              Contacto
+            </Link>
           </Nav>
           <CartWidget />
           <Form className="d-flex left ">
